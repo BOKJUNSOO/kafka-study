@@ -1,0 +1,99 @@
+spring:
+  profile:
+    active: dev
+  application:
+    name: seoul-moa-api
+  datasource:
+    url: jdbc:postgresql://localhost:15432/seoulmoa?currentSchema=datawarehouse
+#    username: seoulmoa
+    username: airflow
+#    password: seoulmoa123
+    password: airflow
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: datawarehouse
+        hibernate.search_path: datawarehouse, public
+  batch:
+    jdbc:
+      initialize-schema: always
+      schema: datawarehouse
+      table-prefix: batch_
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  default-produces-media-type: application/json
+  info:
+    title: 서울모아 API 문서
+    description: 서울시 문화행사 플랫폼 API 명세서입니다.
+    version: v1.0.0
+open:
+  api:
+    key: "695079724b626f6f3130324f51414953"
+    url: "http://openapi.seoul.go.kr:8088"
+    metro:
+      key: "776c79566f626f6f3435594b565145"
+      key2: "4948474853626f6f3131357856667573"
+swagger:
+  server-url: http://localhost:8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: seoul-moa-api
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/seoulmoa?currentSchema=datawarehouse
+    username: airflow
+    password: airflow
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: datawarehouse
+        hibernate.search_path: datawarehouse, public
+    batch:
+      jdbc:
+        initialize-schema: always
+        schema: datawarehouse
+        table-prefix: batch_
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  default-produces-media-type: application/json
+  info:
+    title: 서울모아 API 문서
+    description: 서울시 문화행사 플랫폼 API 명세서입니다.
+    version: v1.0.0
+open:
+  api:
+    key: "695079724b626f6f3130324f51414953"
+    url: "http://openapi.seoul.go.kr:8088"
+    metro:
+      key: "776c79566f626f6f3435594b565145"
+      key2: "4948474853626f6f3131357856667573"
+server:
+  port: 8083
+  servlet:
+    session:
+      cookie:
+        same-site: None
+        secure: true
+  forward-headers-strategy: framework
+swagger:
+  server-url: https://seoulmoa-api.murkui.com

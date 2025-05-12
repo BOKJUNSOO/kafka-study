@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: seoulmoa-api
+    build:
+      context: ../backend
+      dockerfile: ../backend/Dockerfile.backend
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    restart: always
